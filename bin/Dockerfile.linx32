@@ -1,0 +1,44 @@
+# Usar Ubuntu 16.04 como base
+FROM ubuntu:16.04
+
+# Definir a variável de ambiente para evitar interatividade durante a instalação
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Atualizar e instalar ferramentas essenciais e dependências de 32 bits
+RUN dpkg --add-architecture i386 && \
+    apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    gcc-multilib \
+    g++-multilib \
+    libpng-dev:i386 \
+    libjpeg-dev:i386 \
+    libtiff-dev:i386 \
+    libdcmtk-dev:i386 \
+    wget \
+    tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Clonar o repositório do Plastimatch
+RUN git clone https://gitlab.com/plastimatch/plastimatch.git /plastimatch
+
+# Criar o diretório de build
+WORKDIR /plastimatch/build
+
+# Configurar o CMake para compilação em 32 bits
+RUN cmake -D CMAKE_C_FLAGS="-m32" -D CMAKE_CXX_FLAGS="-m32" -D BUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release ..
+
+# Compilar o Plastimatch usando o ambiente de 32 bits
+RUN make -j$(nproc)
+
+# Instalar Plastimatch (será instalado em /usr/local por padrão)
+RUN make install
+
+# Criar um arquivo tar.gz com os binários e bibliotecas necessários
+RUN cd /usr/local && \
+    tar -czvf /plastimatch_x32_binarios.tar.gz bin lib include
+
+# O container final gera o arquivo tar.gz para distribuição
+CMD ["cat", "/plastimatch_x32_binarios.tar.gz"]

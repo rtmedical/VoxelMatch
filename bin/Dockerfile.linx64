@@ -1,0 +1,41 @@
+# Usar Ubuntu 16.04 como imagem base
+FROM ubuntu:16.04
+
+# Definir a variável de ambiente para evitar interatividade durante a instalação
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Atualizar e instalar dependências essenciais
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    libpng-dev \
+    libjpeg-dev \
+    libtiff-dev \
+    libdcmtk-dev \
+    wget \
+    tar \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Clonar o repositório do Plastimatch
+RUN git clone https://gitlab.com/plastimatch/plastimatch.git /plastimatch
+
+# Criar o diretório de build
+WORKDIR /plastimatch/build
+
+# Configurar o CMake para linkagem estática
+RUN cmake -D BUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DITK_USE_REVIEW=OFF ..
+
+# Compilar o Plastimatch usando múltiplos núcleos
+RUN make VERBOSE=1
+
+# Instalar Plastimatch (será instalado em /usr/local por padrão)
+RUN make install
+
+# Criar um arquivo tar.gz com os binários e bibliotecas necessárias
+RUN cd /usr/local && \
+    tar -czvf /plastimatch_binarios.tar.gz bin lib include
+
+# O container final gera o arquivo tar.gz para distribuição
+CMD ["cat", "/plastimatch_binarios.tar.gz"]
