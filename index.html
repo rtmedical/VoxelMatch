@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>Comparação de Estruturas DICOM RTSTRUCT</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    #file-loaders {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    table th, table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    table td {
+      background-color: #fff;
+    }
+
+    #progress-indicator {
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Comparação de Estruturas DICOM RTSTRUCT</h1>
+
+  <!-- Div com botões para carregar arquivos -->
+  <div id="file-loaders">
+    <button id="load-file-1">Carregar Arquivo de Referência (Arquivo 1)</button>
+    <button id="load-file-2">Carregar Arquivo a Ser Comparado (Arquivo 2)</button>
+    <button id="load-file-3">Carregar Arquivo a Ser Comparado (Arquivo 3)</button>
+    <button id="load-file-4">Carregar Arquivo a Ser Comparado (Arquivo 4)</button>
+    <br>
+    <!-- Botão para aplicar pré-processamento nas estruturas -->
+    <button id="apply-preprocess">Aplicar Pré-processamento</button>
+    <!-- Botão para calcular o índice Dice -->
+    <button id="calculate-dice">Calcular Índice Dice</button>
+    <!-- Botão para exportar os resultados para CSV -->
+    <button id="export-csv" style="display: none;">Exportar Resultados para CSV</button>
+  </div>
+
+  <!-- Tabela que exibirá as estruturas extraídas e os resultados de Dice -->
+  <table id="structures-table">
+    <thead>
+      <tr>
+        <th>Estruturas (Arquivo 1)</th>
+        <th>Estruturas (Arquivo 2)</th>
+        <th>Estruturas (Arquivo 3)</th>
+        <th>Estruturas (Arquivo 4)</th>
+        <th>Índice Dice</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- As linhas da tabela serão preenchidas dinamicamente via JavaScript -->
+    </tbody>
+  </table>
+
+  <!-- Indicador de progresso para o cálculo do índice Dice -->
+  <div id="progress-indicator">Calculando Dice, por favor aguarde...</div>
+
+  <!-- Carregar o arquivo renderer.js que contém a lógica do frontend -->
+  <script src="renderer.js"></script>
+</body>
+</html>
