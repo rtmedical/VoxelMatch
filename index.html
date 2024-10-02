@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  
+  <!-- Include Content-Security-Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
   <title>Comparação de Estruturas DICOM RTSTRUCT</title>
   <style>
+    /* Styles as before */
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
@@ -61,22 +62,20 @@
 <body>
   <h1>Comparação de Estruturas DICOM RTSTRUCT</h1>
 
-  <!-- Div com botões para carregar arquivos -->
+  <!-- Div with buttons to load files -->
   <div id="file-loaders">
     <button id="load-file-1">Carregar Arquivo de Referência (Arquivo 1)</button>
     <button id="load-file-2">Carregar Arquivo a Ser Comparado (Arquivo 2)</button>
     <button id="load-file-3">Carregar Arquivo a Ser Comparado (Arquivo 3)</button>
     <button id="load-file-4">Carregar Arquivo a Ser Comparado (Arquivo 4)</button>
     <br>
-    <!-- Botão para aplicar pré-processamento nas estruturas -->
-    <button id="apply-preprocess">Aplicar Pré-processamento</button>
-    <!-- Botão para calcular o índice Dice -->
+    <!-- Button to calculate the Dice index -->
     <button id="calculate-dice">Calcular Índice Dice</button>
-    <!-- Botão para exportar os resultados para CSV -->
+    <!-- Button to export the results to CSV -->
     <button id="export-csv" style="display: none;">Exportar Resultados para CSV</button>
   </div>
 
-  <!-- Tabela que exibirá as estruturas extraídas e os resultados de Dice -->
+  <!-- Table to display the extracted structures and Dice results -->
   <table id="structures-table">
     <thead>
       <tr>
@@ -84,18 +83,20 @@
         <th>Estruturas (Arquivo 2)</th>
         <th>Estruturas (Arquivo 3)</th>
         <th>Estruturas (Arquivo 4)</th>
-        <th>Índice Dice</th>
+        <th>Dice A1-A2</th>
+        <th>Dice A1-A3</th>
+        <th>Dice A1-A4</th>
       </tr>
     </thead>
     <tbody>
-      <!-- As linhas da tabela serão preenchidas dinamicamente via JavaScript -->
+      <!-- The table rows will be filled dynamically via JavaScript -->
     </tbody>
   </table>
 
-  <!-- Indicador de progresso para o cálculo do índice Dice -->
-  <div id="progress-indicator">Calculando Dice, por favor aguarde...</div>
+  <!-- Progress indicator for the Dice calculation -->
+  <div id="progress-indicator" style="display: none;">Calculando Dice, por favor aguarde...</div>
 
-  <!-- Carregar o arquivo renderer.js que contém a lógica do frontend -->
+  <!-- Load the renderer.js file which contains the frontend logic -->
   <script src="renderer.js"></script>
 </body>
 </html>
