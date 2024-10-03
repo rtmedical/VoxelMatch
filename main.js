@@ -106,7 +106,7 @@ function calcularDice(estrutura1Caminho, estrutura2Caminho) {
   return new Promise((resolve, reject) => {
     const normalizedEstrutura1 = path.normalize(estrutura1Caminho);
     const normalizedEstrutura2 = path.normalize(estrutura2Caminho);
-    const command = `plastimatch dice --all "${normalizedEstrutura1}" "${normalizedEstrutura2}"`;
+    const command = `plastimatch dice  "${normalizedEstrutura1}" "${normalizedEstrutura2}"`;
     console.log(command);
     exec(command, (error, stdout, stderr) => {
       if (error) {

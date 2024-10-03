@@ -5,18 +5,37 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^32.1.2"
+    "electron": "^32.1.2",
+    "electron-builder": "^25.0.5"
   },
   "dependencies": {
     "csv-writer": "^1.6.0",
     "p-limit": "^6.1.0",
     "p-queue": "^8.0.1",
     "string-similarity": "^4.0.4"
+  },
+  "build": {
+  "appId": "com.example.voxelmatch",
+  "productName": "VoxelMatch",
+  "directories": {
+    "output": "dist"
+  },
+  "files": [
+    "build/**/*",
+    "main.js",
+    "package.json"
+  ],
+  "win": {
+    "target": "nsis",
+    "icon": "build/icon.ico"
   }
+}
+  
 }
